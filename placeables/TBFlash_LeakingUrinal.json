@@ -1,0 +1,154 @@
+{
+    "ComponentConfigData": [
+        {
+			"$type": "TBFlash.LeakingUrinal.POConfig_TBFlash_LeakingUrinal, TBFlash.LeakingUrinal",
+			"isUrinal": true,
+			"TimingDisplayCategory": 3,
+			"acceptsQueueGeometry": false,
+			"queueEnabled": true,
+			"concurrency": 1,
+			"staffLimit": -1,
+			"workSortOrder": 100,
+			"requiresStaffType": 0
+		},
+		{
+			"$type": "POConfig_Maintainable, Assembly-CSharp",
+			"pip": 0.01
+		}
+	],
+	"DisplayCategories": [
+		30
+	],
+	"RequiredLevels": [],
+	"requiredAdministrators": [],
+	"Hidden": false,
+	"CreatePrice": -200.0,
+	"HourlyPrice": 0.0,
+	"HourlyPriceCategory": 2,
+	"isDestroyable": true,
+	"bWriteToMapCache": true,
+	"MaxAllowed": -1,
+	"requiresSecureArea": false,
+	"requiresSectorRebuild": false,
+	"PlacementSound": 2,
+	"snapToGridSize": 1,
+	"constructionType": 1,
+	"constructionDuration": 300.0,
+	"Properties": [
+		1,
+		9
+	],
+	"BlockedBy": [
+		0,
+		1,
+		2
+	],
+	"width": 1,
+	"height": 1,
+	"StaffRequired": 0,
+	"Maintainable_MTBF": 10,
+	"path": "TBFlash/LeakingUrinal",
+	"rotateType": 1,
+	"frontFacing": {
+		"enabled": true,
+		"markers": [
+			{
+				"receiverType": 0,
+				"position": {
+					"x": 0.4862671,
+					"y": -0.01899815
+				},
+				"orientation": {
+					"x": 0.0,
+					"y": 1.0
+				},
+				"tag": "fronttag",
+				"blocksConstruction": true,
+				"rotateEnabled": false,
+				"RelativeLevel": 0
+			}
+		],
+		"sprites": [
+			{
+				"sortingOrder": -0.6,
+				"localPosition": {
+					"x": 0.0,
+					"y": 0.0
+				},
+				"localRotation": 0.0,
+				"relativeLevel": 0,
+				"sprite": "TBFlash_Urinal_Front"
+			}
+		]
+	},
+	"leftFacing": {
+		"enabled": true,
+		"markers": [
+			{
+				"receiverType": 0,
+				"position": {
+					"x": 0.25,
+					"y": 0.25
+				},
+				"orientation": {
+					"x": 1.0,
+					"y": 0.0
+				},
+				"tag": "lefttag",
+				"blocksConstruction": true,
+				"rotateEnabled": false,
+				"RelativeLevel": 0
+			}
+		],
+		"sprites": [
+			{
+				"sortingOrder": -4.0,
+				"localPosition": {
+					"x": 0.25,
+					"y": 0.32
+				},
+				"localRotation": 0.0,
+				"relativeLevel": 0,
+				"sprite": "TBFlash_Urinal_Left"
+			}
+		]
+	},
+	"backFacing": {
+		"enabled": true,
+		"markers": [
+			{
+				"receiverType": 0,
+				"position": {
+					"x": 0.5192261,
+					"y": 0.9201412
+				},
+				"orientation": {
+					"x": 0.0,
+					"y": -1.0
+				},
+				"tag": "backtag",
+				"blocksConstruction": false,
+				"rotateEnabled": false,
+				"RelativeLevel": 0
+			}
+		],
+		"sprites": [
+			{
+				"sortingOrder": -0.5,
+				"localPosition": {
+					"x": 0.0,
+					"y": 0.0
+				},
+				"localRotation": 0.0,
+				"relativeLevel": 0,
+				"sprite": "TBFlash_Urinal_Back"
+			}
+		]
+	},
+	"rightFacing": {
+		"enabled": true
+	},
+	"_i18nNameKey": "TBFlash.LeakingUrinal.name",
+	"_i18nDescKey": "TBFlash.LeakingUrinal.description",
+	"name": "TBFlash_LeakingUrinal"
+}
