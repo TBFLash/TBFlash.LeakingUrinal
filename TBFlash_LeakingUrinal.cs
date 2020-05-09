@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 
 namespace TBFlash.LeakingUrinal
 {
+    [JsonConverter(typeof(TBFlash_Converter<TBFlash_LeakingUrinal>))]
     public class TBFlash_LeakingUrinal : ToiletUtility
     {
         [JsonIgnore]

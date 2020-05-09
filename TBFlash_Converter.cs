@@ -1,53 +1,100 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
+using UnityEngine;
 using SimAirport.Logging;
-using Newtonsoft.Json.Serialization;
-
 
 namespace TBFlash.LeakingUrinal
 {
-    public class TBFlash_Converter : DefaultContractResolver
-    {
-		public static DefaultContractResolver Instance = new TBFlash_Converter();
+	public class TBFlash_Converter<T> : JsonConverter
+	{
+		private readonly bool isTBFlashDebug = false;
+		public Type usingType;
 
-		protected override JsonContract CreateContract(Type objectType)
+		public TBFlash_Converter()
 		{
-			JsonContract contract = base.CreateContract(objectType);
-
-			// this will only be called once and then cached
-			if (objectType == typeof(TBFlash_LeakingUrinal.TBFlash_LeakingUrinalData))
-			{
-				Game.Logger.Write(Log.FromPool("").WithCodepoint());
-			}
-			return contract;
+			usingType = typeof(T);
+			TBFlashLogger(Log.FromPool($"Created TBFlash_Converter of Type: {usingType}").WithCodepoint());
 		}
 
-		protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
+		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
 		{
-			IList<JsonProperty> properties = base.CreateProperties(type, memberSerialization);
-
-			foreach(JsonProperty prop in properties)
+			IPrefab prefab = null;
+			MonoBehaviour monoBehaviour = value as MonoBehaviour;
+			if (value is IJsonSaveable jsonSaveable)
 			{
-				Game.Logger.Write(Log.FromPool($"{prop.PropertyName}:{prop.DeclaringType}"));
-				if (prop.DeclaringType == typeof(SmartQueueManager) && prop.PropertyName == "parent")
+				prefab = jsonSaveable.iprefab;
+			}
+			else if (monoBehaviour != null)
+			{
+				Prefab component = monoBehaviour.GetComponent<Prefab>();
+				if (component != null)
 				{
-					Game.Logger.Write(Log.FromPool("SQM+parent").WithCodepoint());
-					prop.ShouldSerialize =
-						_ => false;
-				}
-				if(prop.DeclaringType == typeof(SmartQueue) && prop.PropertyName == "obj")
-				{
-					Game.Logger.Write(Log.FromPool("SQ+obj").WithCodepoint());
-					prop.ShouldSerialize =
-						_ => false;
-				}
-				if (prop.DeclaringType == typeof(SmartObject))
-				{
-					Game.Logger.Write(Log.FromPool("SO").WithCodepoint());
+					prefab = component.iprefab;
 				}
 			}
-			return properties;
+			if (ShouldSerializeIPrefab(prefab))
+			{
+				serializer.Serialize(writer, prefab.guid.ToString());
+				return;
+			}
+			writer.WriteComment("nulled destroyed MIA");
+			serializer.Serialize(writer, null);
+		}
+
+		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+		{
+			string text = serializer.Deserialize<string>(reader);
+			if (text == null)
+			{
+				return null;
+			}
+			IPrefab prefab = GUID.Fetch(int.Parse(text));
+			if (prefab == null)
+			{
+				TBFlashLogger(Log.FromPool(string.Format("GUID.Fetch {0} was NULL // NOT FOUND", text)).WithCodepoint());
+				return null;
+			}
+			if (prefab.zone != null)
+			{
+				return prefab.zone;
+			}
+			if (prefab.agent != null)
+			{
+				return prefab.agent;
+			}
+			if (prefab.iPoolable != null)
+			{
+				return prefab.iPoolable;
+			}
+			if (prefab.prefab != null)
+			{
+				Component component = prefab.prefab.gameObject.GetComponent(usingType);
+				if (component == null)
+				{
+					TBFlashLogger(Log.FromPool("NULL GetComponent<T> Lookup").WithCodepoint());
+				}
+				return component;
+			}
+			TBFlashLogger(Log.FromPool("NULL GetComponent<T> Lookup").WithCodepoint());
+			return null;
+		}
+
+		public override bool CanConvert(Type objectType)
+		{
+			return objectType == usingType;
+		}
+
+		private static bool ShouldSerializeIPrefab(IPrefab i)
+		{
+			return i?.isPooled == false && i.guid != GUID.None && (!(i.prefab != null) || i.prefab.commitable);
+		}
+
+		private void TBFlashLogger(Log log)
+		{
+			if (isTBFlashDebug)
+			{
+				Game.Logger.Write(log);
+			}
 		}
 	}
 }

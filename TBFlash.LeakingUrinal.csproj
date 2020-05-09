@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="TBFlash_Converter.cs" />
     <Compile Include="TBFlash_LeakingUrinal.cs" />
     <Compile Include="POConfig_TBFlash_LeakingUrinal.cs" />
     <Compile Include="Mod.cs" />
