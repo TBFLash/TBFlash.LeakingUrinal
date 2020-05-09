@@ -2,6 +2,7 @@
     "ComponentConfigData": [
         {
 			"$type": "TBFlash.LeakingUrinal.POConfig_TBFlash_LeakingUrinal, TBFlash.LeakingUrinal",
+			"name": "TBFlash_LeakingUrinal",
 			"isUrinal": true,
 			"TimingDisplayCategory": 3,
 			"acceptsQueueGeometry": false,
@@ -9,11 +10,35 @@
 			"concurrency": 1,
 			"staffLimit": -1,
 			"workSortOrder": 100,
-			"requiresStaffType": 0
+			"requiresStaffType": 0,
+			"frontSprites": [
+				"TBFlash_Urinal_Front",
+				"TBFlash_Urinal_Front_Leak"
+			],
+			"leftSprites": [
+				"TBFlash_Urinal_Left",
+				"TBFlash_Urinal_Left_Leak"
+			],
+			"backSprites": [
+				"TBFlash_Urinal_Back",
+				"TBFlash_Urinal_Back_Leak"
+			]
 		},
 		{
 			"$type": "POConfig_Maintainable, Assembly-CSharp",
+			"name": "TB_Maintainable",
 			"pip": 0.01
+		},
+		{
+			"$type": "POConfig_Emitter, Assembly-CSharp",
+			"name": "TB_Emitter",
+			"affects": 0,
+			"intensity": -0.05,
+			"distance": 4,
+			"isExponential": true,
+			"minAngle": 360.0,
+			"maxAngle": 360.0,
+			"dualDirection": true
 		}
 	],
 	"DisplayCategories": [
@@ -70,9 +95,9 @@
 		],
 		"sprites": [
 			{
-				"sortingOrder": -0.6,
+				"sortingOrder": 0,
 				"localPosition": {
-					"x": 0.0,
+					"x": 0.27,
 					"y": 0.0
 				},
 				"localRotation": 0.0,
@@ -102,10 +127,10 @@
 		],
 		"sprites": [
 			{
-				"sortingOrder": -4.0,
+				"sortingOrder": 0,
 				"localPosition": {
 					"x": 0.25,
-					"y": 0.32
+					"y": 0.05
 				},
 				"localRotation": 0.0,
 				"relativeLevel": 0,
@@ -134,9 +159,9 @@
 		],
 		"sprites": [
 			{
-				"sortingOrder": -0.5,
+				"sortingOrder": 0,
 				"localPosition": {
-					"x": 0.0,
+					"x": 0.27,
 					"y": 0.0
 				},
 				"localRotation": 0.0,

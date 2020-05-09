@@ -18,9 +18,5 @@ namespace TBFlash.LeakingUrinal
         public override void OnTick()
         {
         }
-
-        public override void OnLoad(SimAirport.Modding.Data.GameState state)
-        {
-        }
     }
 }
